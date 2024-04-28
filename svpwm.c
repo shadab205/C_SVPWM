@@ -109,10 +109,27 @@ void tSVPWM_calc(tSVPWM* ptSVPWM)
 	afTi[1] = fTb1 + fTb2 + afTi[0];
 	afTi[2] = fTb2 + afTi[0];
 	afTi[3] = fTb1 + afTi[0];
-		
-	ptSVPWM->fCCRA = ptSVPWM->fUdcCCRval * afTi[au8PermuataionMatrix[u8Sector][0]];
-	ptSVPWM->fCCRB = ptSVPWM->fUdcCCRval * afTi[au8PermuataionMatrix[u8Sector][1]];
-	ptSVPWM->fCCRC = ptSVPWM->fUdcCCRval * afTi[au8PermuataionMatrix[u8Sector][2]];
+
+  switch(ptSVPWM->enOutType)
+  {
+    case edgeAligned:
+      ptSVPWM->fCCRA = ptSVPWM->fUdcCCRval * afTi[au8PermuataionMatrix[u8Sector][0]];
+	    ptSVPWM->fCCRB = ptSVPWM->fUdcCCRval * afTi[au8PermuataionMatrix[u8Sector][1]];
+	    ptSVPWM->fCCRC = ptSVPWM->fUdcCCRval * afTi[au8PermuataionMatrix[u8Sector][2]];
+      break;
+
+    case centerAligned:
+      ptSVPWM->fCCRA = ptSVPWM->fUdcCCRval - (ptSVPWM->fUdcCCRval * afTi[au8PermuataionMat[u8Sect][0]]);
+      ptSVPWM->fCCRB = ptSVPWM->fUdcCCRval - (ptSVPWM->fUdcCCRval * afTi[au8PermuataionMat[u8Sect][1]]);
+      ptSVPWM->fCCRC = ptSVPWM->fUdcCCRval - (ptSVPWM->fUdcCCRval * afTi[au8PermuataionMat[u8Sect][2]]);
+      break;
+
+    default:
+      ptSVPWM->fCCRA = 0.0f;
+	    ptSVPWM->fCCRB = 0.0f;
+	    ptSVPWM->fCCRC = 0.0f;
+  }
+
 }
 
 /*********************************** END OF FILE ***********************************/

@@ -76,14 +76,22 @@ typedef struct sSVPWM
 {
 // Inputs:
 	tInType	enInType;		// SVPWM module data input type
-	float	fUdc;			// DC Link voltage, Volts
-	float	fUdcCCRval;		// Counter compare register value which is
-																		// equivalent to full DC Link voltage
+	float	fUdc;			    // DC Link voltage, Volts
+
+  /**
+   * This value must be the period register value of the PWM peripheral in 
+   * edge alighed mode or the maximum period register value during UP
+   * count mode before the PWM counter starts decrementing to zero in the
+   * down count mode.
+   * 
+   */
+	float	fUdcCCRval;
+																		
 	// enInType == AlBe:
-	float	fUal;			// Alpha input, Volts
-	float	fUbe;			// Beta input, Volts
+	float	fUal;			  // Alpha input, Volts
+	float	fUbe;			  // Beta input, Volts
 	// enInType == UsAng:
-	float	fUs;			// Magnitude input, Volts (enInType == UsAng)
+	float	fUs;			  // Magnitude input, Volts (enInType == UsAng)
 	float	fAngRad;		// Angle input, Rad (enInType == UsAng)
 // Outputs:
   tOutType enOutType;
