@@ -1,15 +1,18 @@
 /**
   ***********************************************************************************
   * @file    svpwm.c
-  * @author  Serhii Yatsenko [royalroad1995@gmail.com]
-  * @version V1.0
-  * @date    May-2020
+  * @author  Shadab Shaikh, Serhii Yatsenko
+  * @version V1.1
+  * @date    April-2024
   * @brief   This file provides firmware function for implementation the SVPWM - 
   *	     Space-Vector Pulse Width Modulation for power electronics application
   ***********************************************************************************
   * @license
   *
-  * MIT License
+  * MIT License (MIT)
+  * 
+  * Copyright (c) 2020 Serhii Yatsenko
+  * Copyright (c) 2024 Shadab Shaikh
   *
   * Permission is hereby granted, free of charge, to any person obtaining a copy
   * of this software and associated documentation files (the "Software"), to deal

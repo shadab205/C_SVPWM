@@ -1,17 +1,20 @@
 /**
   ***********************************************************************************
   * @file    svpwm.h
-  * @author  Serhii Yatsenko [royalroad1995@gmail.com]
-  * @version V1.0
-  * @date    May-2020
+  * @author  Shadab Shaikh, Serhii Yatsenko
+  * @version V1.1
+  * @date    April-2024
   * @brief   This file contains the type definition of data structure and function
   *	     prototypes for implementation the SVPWM - Space-Vector Pulse Width 
   *	     Modulation
   ***********************************************************************************
   * @license
   *
-  * MIT License
-  *
+  * MIT License (MIT)
+  * 
+  * Copyright (c) 2020 Serhii Yatsenko
+  * Copyright (c) 2024 Shadab Shaikh
+  * 
   * Permission is hereby granted, free of charge, to any person obtaining a copy
   * of this software and associated documentation files (the "Software"), to deal
   * in the Software without restriction, including without limitation the rights
@@ -56,6 +59,16 @@ typedef enum
 	UsAng	= 0x01U			// Magnitude-Angle component input
 } tInType;
 
+/**
+ * @brief SVPWM module data output type
+ * 
+ */
+typedef enum
+{
+  edgeAligned = 0x00U,  //Edge Aligned output
+  centerAligned = 0x01U //Center Aligned PWM output
+} tOutType;
+
 /** 
   * @brief "SVPWM Module" data structure
   */
@@ -73,6 +86,7 @@ typedef struct sSVPWM
 	float	fUs;			// Magnitude input, Volts (enInType == UsAng)
 	float	fAngRad;		// Angle input, Rad (enInType == UsAng)
 // Outputs:
+  tOutType enOutType;
 	float	fCCRA;			// Counter compare register A value
 	float	fCCRB;			// Counter compare register B value
 	float	fCCRC;			// Counter compare register C value
