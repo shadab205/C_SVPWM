@@ -24,15 +24,30 @@ This embedded C-library for MCUs provides the 3-phase duty cycle generation by S
     sSVPWM.enInType = AlBe;  // set the input type
     sSVPWM.fUdc = 537.0f;    // set the DC-Link voltage in Volts
     sSVPWM.fUdcCCRval = 255; // set the Max value of counter compare register which equal to DC-Link voltage
+    sSVPWM.enOutType = centerAligned; //set center aligned PWM output type
+
+    ...
+    ...
+    ...
 
     // 3rd step: Next code must be executed every time a new calculation of duty cycles is needed
-    sSVPWM.fUal = NewAlphaVoltage;	// set a new value of voltage Alpha
-    sSVPWM.fUbe = NewBetaVoltage;	// set a new value of voltage Beta
-    sSVPWM.m_calc(&sSVPWM);		// call the SVPWM duty cycles calculation function
-    CCR0 = sSVPWM.fCCRA;		// update the duty cycle value in CCR0
-    CCR1 = sSVPWM.fCCRB;		// update the duty cycle value in CCR1
-    CCR2 = sSVPWM.fCCRC;		// update the duty cycle value in CCR2
+    // PWM interrupt / the main ISR 
+    {        
+      ...
+      ...
+      ...
 
+      sSVPWM.fUal = NewAlphaVoltage;	// set a new value of voltage Alpha
+      sSVPWM.fUbe = NewBetaVoltage;	// set a new value of voltage Beta
+      sSVPWM.m_calc(&sSVPWM);		// call the SVPWM duty cycles calculation function
+      CCR0 = sSVPWM.fCCRA;		// update the duty cycle value in CCR0
+      CCR1 = sSVPWM.fCCRB;		// update the duty cycle value in CCR1
+      CCR2 = sSVPWM.fCCRC;		// update the duty cycle value in CCR2
+      ...
+      ...
+      ...
+    }
+    
 # License
   
 [MIT](./LICENSE "License Description")
