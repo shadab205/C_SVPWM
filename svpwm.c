@@ -42,7 +42,10 @@
 /* Private define -----------------------------------------------------------------*/
 #define M_Pi	3.1415926535897f // float type of Pi constant value
 #define M_Pi_3	(M_Pi/3.0f)
-
+#define SQRT_3  1.732050807568877f
+#define INV_SQRT_3 0.5773502691896257f // value of 1/sqrt(3)
+#define _FABSF(x) ((x) < 0 ? -(x) : (x))
+#define _SQUARED_HYPOTF(x, y) ((x)*(x) + (y)*(y))
 /* Private constants --------------------------------------------------------------*/
 
 /** 
@@ -76,17 +79,19 @@ void tSVPWM_calc(tSVPWM* ptSVPWM)
 	uint8_t	u8Sector;
 	float	fMaxUs, fScaledUs, fBeta, fTb1, fTb2, afTi[4];
 	
-	fMaxUs = ptSVPWM->fUdc * (1.0f/sqrtf(3.0f));
+	fMaxUs = ptSVPWM->fUdc * INV_SQRT_3; //this is Udc/sqrt(3)
 	
 	switch(ptSVPWM->enInType)
-	{
+	{ 
+    float hypot_squared;
 		case AlBe:
-			ptSVPWM->fUs = hypotf(ptSVPWM->fUbe, ptSVPWM->fUal);
-			ptSVPWM->fAngRad = atan2f(ptSVPWM->fUbe, ptSVPWM->fUal);
+			hypot_squared= _SQUARED_HYPOTF(ptSVPWM->fUbe, ptSVPWM->fUal);
+      ptSVPWM->fUs = sqrt(hypot_squared);
+      ptSVPWM->fAngRad = atan2f(ptSVPWM->fUbe, ptSVPWM->fUal);
 		break;
 		
 		case UsAng:
-			ptSVPWM->fUs = fabsf(ptSVPWM->fUs);
+			ptSVPWM->fUs = _FABSF(ptSVPWM->fUs);
 		break;
 		
 		default: return;
